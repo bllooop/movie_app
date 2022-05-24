@@ -14,8 +14,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.moviecatalog.R
-import com.example.moviecatalog.databinding.FragmentMainBinding
+import com.example.moviecatalogapp.R
+import com.example.moviecatalogapp.databinding.FragmentMainBinding
 import com.example.moviecatalog.models.Movie
 import com.example.moviecatalog.models.MovieResponse
 import com.example.moviecatalog.services.MovieApiInterface
