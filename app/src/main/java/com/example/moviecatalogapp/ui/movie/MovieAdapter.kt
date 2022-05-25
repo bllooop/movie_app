@@ -1,5 +1,6 @@
 package com.example.moviecatalog.ui.movie
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +20,8 @@ class MovieAdapter(
             itemView.movie_title.text = movie.title
             itemView.movie_release_date.text = movie.release
             Glide.with(itemView).load(IMAGE_BASE + movie.poster).into(itemView.movie_poster)
+          //  val checking = arrayListOf<String>(movie.title)
+            //Log.d("MyLog", "gege " + checking)
         }
     }
 
