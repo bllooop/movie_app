@@ -1,4 +1,4 @@
-package com.example.moviecatalog.ui.movie
+package com.example.moviecatalogapp.ui.movie
 
 import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
@@ -6,10 +6,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.moviecatalog.localdata.FavoriteMovie
 import com.example.moviecatalog.localdata.FavoriteMovieRepository
-import com.example.moviecatalog.models.Movie
-import com.example.moviecatalog.models.MovieResponse
-import com.example.moviecatalog.services.MovieApiInterface
-import com.example.moviecatalog.services.MovieApiService
+import com.example.moviecatalogapp.models.Movie
+import com.example.moviecatalogapp.models.MovieResponse
+import com.example.moviecatalogapp.services.MovieApiInterface
+import com.example.moviecatalogapp.services.MovieApiService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

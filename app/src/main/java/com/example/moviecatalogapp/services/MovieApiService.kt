@@ -1,4 +1,4 @@
-package com.example.moviecatalog.services
+package com.example.moviecatalogapp.services
 
 import android.content.Context
 import android.util.Log
@@ -14,6 +14,7 @@ class MovieApiService {
 
     companion object{
         private const val BASE_URL = "https://api.themoviedb.org"
+       // private const val BASE_URL = "https://kinopoiskapiunofficial.tech/api/v2.2/films"
         private var retrofit : Retrofit? = null
 
         fun getInstance() : Retrofit{

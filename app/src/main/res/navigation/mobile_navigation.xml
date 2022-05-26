@@ -9,17 +9,31 @@
         android:id="@+id/navigation_main"
         android:name="com.example.moviecatalogapp.ui.movie.MovieCatalogFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_navigation_main_to_navigation_details"
+            app:destination="@id/navigation_details" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="com.example.moviecatalog.ui.profile.ProfileFragment"
+        android:name="com.example.moviecatalogapp.ui.profile.ProfileFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/navigation_favorite"
-        android:name="com.example.moviecatalog.ui.FavoriteFragment"
+        android:name="com.example.moviecatalogapp.ui.FavoriteFragment"
         android:label="@string/title_favorite"
         tools:layout="@layout/fragment_favorite" />
+    <fragment
+        android:id="@+id/navigation_details"
+        android:name="com.example.moviecatalogapp.ui.details.DetailsFragment"
+        android:label="@string/title_moviedetail"
+        tools:layout="@layout/details_fragment" >
+        <action
+            android:id="@+id/action_navigation_details_to_navigation_main"
+            app:destination="@id/navigation_main" />
+    </fragment>
+
 
 </navigation>
