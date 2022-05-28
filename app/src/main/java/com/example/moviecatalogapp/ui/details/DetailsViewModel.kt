@@ -18,12 +18,12 @@ class DetailsViewModel : ViewModel() {
     init {
         movie_detail=MutableLiveData()
     }
-    fun getSingleMovieData():LiveData<MovieDetails>{
+    fun getSingleMovieData(id: Int):LiveData<MovieDetails>{
         val apiService = MovieApiService.getInstance().create(MovieApiInterface::class.java)
         apiService.getMovieDetails().enqueue(object : Callback<MovieDetails> {
             override fun onFailure(call: Call<MovieDetails>, t: Throwable) {}
-
             override fun onResponse(call: Call<MovieDetails>, response: Response<MovieDetails>) {
+
                  movie_detail.postValue(response.body())
             }
         })

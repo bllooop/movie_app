@@ -32,19 +32,16 @@ class DetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        setHasOptionsMenu(false)
+        setHasOptionsMenu(true)
         return inflater.inflate(R.layout.details_fragment, container, false)
     }
-
-
         override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
             val viewModel = ViewModelProvider(this).get(DetailsViewModel::class.java)
-            viewModel.getSingleMovieData().observe(this, Observer {
+            viewModel.getSingleMovieData(435346).observe(this, Observer {
                 bindMovie(it)
             })
     }
-
     fun bindMovie(movies: MovieDetails){
         movie_title.text = movies.title
         movie_release_date.text = movies.releaseDate
@@ -52,7 +49,7 @@ class DetailsFragment : Fragment() {
         movie_status.text = movies.status
         movie_vote_average.text = movies.voteAverage.toString()
         Glide.with(this).load(IMAGE_BASE + movies.posterPath).into(movie_poster)
-        //Log.d("MyLog", "gege " + checking)
+        // Log.d("MyLog", "gege " + checking)
     }
 }
 

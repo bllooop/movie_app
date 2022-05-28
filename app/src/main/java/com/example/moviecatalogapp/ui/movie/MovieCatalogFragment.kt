@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moviecatalogapp.models.Movie
 import com.example.moviecatalogapp.ui.movie.MovieAdapter
@@ -42,8 +43,8 @@ class MovieCatalogFragment() : Fragment() {
 
    override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
        super.onViewCreated(itemView, savedInstanceState)
-       val secondFragment=DetailsFragment()
-       val transaction: FragmentTransaction = fragmentManager!!.beginTransaction()
+      // val secondFragment=DetailsFragment()
+       //val transaction: FragmentTransaction = fragmentManager!!.beginTransaction()
        val viewModel = ViewModelProvider(this).get(MovieViewModel::class.java)
        viewModel.getLiveDataObserver().observe(this, Observer {
            rv_movies_list.layoutManager = LinearLayoutManager(activity)
@@ -53,12 +54,11 @@ class MovieCatalogFragment() : Fragment() {
            displayList.addAll(arrayList)
            var adapter = MovieAdapter(displayList)
            rv_movies_list.adapter = adapter
-           adapter.setOnItemClickListener(object:MovieAdapter.onItemClickListener {
+          /* adapter.setOnItemClickListener(object:MovieAdapter.onItemClickListener {
                override fun onItemClick(position: Int) {
-                   transaction.replace(R.id.rec,secondFragment)
-                   transaction.commit()
+                   findNavController().navigate(R.id.action_navigation_main_to_navigation_details)
                }
-           })
+           })*/
            // }
        })
        viewModel.getMovieData()
