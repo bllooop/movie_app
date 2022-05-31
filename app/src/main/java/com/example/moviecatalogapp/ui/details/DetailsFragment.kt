@@ -37,8 +37,12 @@ class DetailsFragment : Fragment() {
     }
         override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+            val args = this.arguments
+            val input = args?.getString("id")
+            val id = input!!.toInt()
+            Log.d("MyLog", "gege " + id)
             val viewModel = ViewModelProvider(this).get(DetailsViewModel::class.java)
-            viewModel.getSingleMovieData(435346).observe(this, Observer {
+            viewModel.getSingleMovieData(id).observe(this, Observer {
                 bindMovie(it)
             })
     }
