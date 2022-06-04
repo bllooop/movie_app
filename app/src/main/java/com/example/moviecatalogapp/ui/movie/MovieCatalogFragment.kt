@@ -1,22 +1,15 @@
 package com.example.moviecatalogapp.ui.movie
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.SearchView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moviecatalogapp.models.Movie
-import com.example.moviecatalogapp.ui.movie.MovieAdapter
-import com.example.moviecatalogapp.ui.movie.MovieViewModel
 import com.example.moviecatalogapp.R
 import com.example.moviecatalogapp.databinding.FragmentMainBinding
-import com.example.moviecatalogapp.ui.details.DetailsFragment
 import kotlinx.android.synthetic.main.fragment_main.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -43,7 +36,7 @@ class MovieCatalogFragment() : Fragment() {
 
    override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
        super.onViewCreated(itemView, savedInstanceState)
-      // val secondFragment=DetailsFragment()
+       // val secondFragment=DetailsFragment()
        //val transaction: FragmentTransaction = fragmentManager!!.beginTransaction()
        val viewModel = ViewModelProvider(this).get(MovieViewModel::class.java)
        viewModel.getLiveDataObserver().observe(this, Observer {
@@ -54,6 +47,13 @@ class MovieCatalogFragment() : Fragment() {
            displayList.addAll(arrayList)
            var adapter = MovieAdapter(displayList)
            rv_movies_list.adapter = adapter
+           arrayList.forEach {
+             //  favorite.setOnCheckedChangeListener { buttonView, isChecked ->
+             //      if (isChecked) {
+              //         Log.d("MyLog", "gege ")
+               //    }
+             //  }
+           }
           /* adapter.setOnItemClickListener(object:MovieAdapter.onItemClickListener {
                override fun onItemClick(position: Int) {
                    findNavController().navigate(R.id.action_navigation_main_to_navigation_details)
@@ -62,29 +62,6 @@ class MovieCatalogFragment() : Fragment() {
            // }
        })
        viewModel.getMovieData()
-      /* var _isChecked = false
-       CoroutineScope(Dispatchers.IO).launch {
-           val count = viewModel.checkMovie(movie.id)
-           withContext(Main) {
-               if (count > 0) {
-                   toggleFavorite.isChecked = true
-                   _isChecked = true
-               } else {
-                   toggleFavorite.isChecked = false
-                   _isChecked = false
-               }
-           }
-
-           toggleFavorite.setOnClickListener {
-               _isChecked = !_isChecked
-               if (_isChecked){
-                   viewModel.addToFavorite(movie)
-               } else{
-                   viewModel.removeFromFavorite(movie.id)
-               }
-               toggleFavorite.isChecked = _isChecked
-           }
-       }*/
    }
 
     override fun onDestroyView() {

@@ -1,11 +1,16 @@
 package com.example.moviecatalogapp.ui.movie
 
+import android.app.Application
 import android.util.Log
+import android.widget.CheckBox
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.moviecatalog.localdata.FavoriteMovie
+import com.example.moviecatalog.localdata.FavoriteMovieDatabase
 import com.example.moviecatalog.localdata.FavoriteMovieRepository
+import com.example.moviecatalogapp.R
 import com.example.moviecatalogapp.models.Movie
 import com.example.moviecatalogapp.models.MovieResponse
 import com.example.moviecatalogapp.services.MovieApiInterface
@@ -19,31 +24,18 @@ import retrofit2.Response
 
 class MovieViewModel : ViewModel() {
      var moviess = MutableLiveData<List<Movie>>()
-     init {
+   //  private val repository: FavoriteMovieRepository
+   /*  init{
+          val  favoriteMovieDao = FavoriteMovieDatabase.getAppDatabase(application)!!.getFavoriteMovieDao()
+          repository = FavoriteMovieRepository(favoriteMovieDao)
           moviess=MutableLiveData()
-     }
-   /*  fun addToFavorite(movie: Movie){
-          CoroutineScope(Dispatchers.IO).launch {
-               repository.addToFavorite(
-                    FavoriteMovie(
-                         movie.id,
-                         movie.title,
-                         movie.poster,
-                         movie.release
-                    )
-               )
-          }
      } */
+
 
      fun getLiveDataObserver():MutableLiveData<List<Movie>>{
           return moviess
      }
-    /* suspend fun checkMovie(id: String) = repository.checkMovie(id)
-     fun removeFromFavorite(id: String){
-          CoroutineScope(Dispatchers.IO).launch {
-               repository.removeFromFavorite(id)
-          }
-     } */
+
 
      //callback: (List<Movie>) -> Unit
      fun getMovieData(){
@@ -55,4 +47,11 @@ class MovieViewModel : ViewModel() {
                }
           })
      }
-}
+   /*  fun addToFavorite(favoriteMovie: FavoriteMovie) {
+          viewModelScope.launch(Dispatchers.IO) {
+               repository.addToFavorite(favoriteMovie)
+          }
+          }
+
+*/
+     }
