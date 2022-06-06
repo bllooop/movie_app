@@ -17,7 +17,6 @@ class LoggedActivity: AppCompatActivity()  {
         super.onCreate(savedInstanceState)
         binding = ActivityLoggedBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        //toolbar = findViewById(R.id.toolbar)
         //setActionBar(toolbar)
         val navView: BottomNavigationView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_activity_logged)
