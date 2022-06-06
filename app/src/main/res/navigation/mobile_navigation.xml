@@ -6,7 +6,7 @@
     app:startDestination="@+id/navigation_main">
     <fragment
         android:id="@+id/navigation_main"
-        android:name="com.example.moviecatalogapp.ui.movie.MovieCatalogFragment"
+        android:name="com.example.moviecatalogappp.ui.movie.MovieCatalogFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_main" >
         <action
@@ -16,23 +16,24 @@
 
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="com.example.moviecatalogapp.ui.profile.ProfileFragment"
+        android:name="com.example.moviecatalogappp.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/navigation_favorite"
-        android:name="com.example.moviecatalogapp.ui.favorite.FavoriteFragment"
+        android:name="com.example.moviecatalogappp.ui.favorite.FavoriteFragment"
         android:label="@string/title_favorite"
         tools:layout="@layout/fragment_favorite" />
     <fragment
         android:id="@+id/navigation_details"
-        android:name="com.example.moviecatalogapp.ui.details.DetailsFragment"
+        android:name="com.example.moviecatalogappp.ui.details.DetailsFragment"
         android:label="@string/title_moviedetail"
         tools:layout="@layout/details_fragment" >
         <action
             android:id="@+id/action_navigation_details_to_navigation_main"
             app:destination="@id/navigation_main" />
     </fragment>
+
 
 
 </navigation>

@@ -4,4 +4,10 @@
     <string name="title_profile">Профиль</string>
     <string name="title_favorite">Избранное</string>
     <string name="title_moviedetail">Фильм</string>
+    <string name="title_login">Авторизация</string>
+    <string name="title_register">Регистрация</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

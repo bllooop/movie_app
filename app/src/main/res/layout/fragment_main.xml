@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:background="@color/pale_black"
     android:id="@+id/rec"
-    tools:context="com.example.moviecatalogapp.ui.movie.MovieCatalogFragment" >
+    tools:context="com.example.moviecatalogappp.ui.movie.MovieCatalogFragment"
+    android:layout_marginTop="30dp">
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
