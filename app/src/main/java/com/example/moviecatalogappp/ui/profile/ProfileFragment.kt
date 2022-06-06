@@ -23,7 +23,6 @@ class ProfileFragment : Fragment() {
     private lateinit var firebaseAuth : FirebaseAuth
     private var email = ""
     private var password = ""
-    val appContext = requireContext().applicationContext
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -52,7 +51,9 @@ class ProfileFragment : Fragment() {
             binding.emailname.text = email
         }
         if(firebaseUser==null){
-            startActivity(Intent(appContext, MainActivity::class.java))
+            activity?.let {
+                startActivity(Intent(it, MainActivity::class.java))
+            }
         }
     }
 }

@@ -44,7 +44,7 @@ class LoginFragment() : Fragment() {
         progressDialog.setCanceledOnTouchOutside(false) */
 
         firebaseAuth = FirebaseAuth.getInstance()
-        checkUser()
+            checkUser()
         binding.regText.setOnClickListener {
             regText.findNavController()
                 .navigate(R.id.action_navigation_login_to_navigation_register)
@@ -82,8 +82,10 @@ class LoginFragment() : Fragment() {
     }
     private fun checkUser(){
         val firebaseUser = firebaseAuth.currentUser
-        if(firebaseUser!=null){
-            startActivity(Intent(appContext,LoggedActivity::class.java))
+        activity?.let {
+            if (firebaseUser != null) {
+                startActivity(Intent(it, LoggedActivity::class.java))
+            }
         }
     }
 }

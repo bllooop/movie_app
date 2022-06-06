@@ -33,7 +33,7 @@ class FavoriteAdapter( private val movies : List<FavoriteMovie>): RecyclerView.A
             bundle.putString("id", favoriteMovie.id_movie)
             itemView.setOnClickListener {
                 itemView.findNavController()
-                    .navigate(R.id.action_navigation_main_to_navigation_details, bundle)
+                    .navigate(R.id.action_navigation_favorite_to_navigation_details, bundle)
             }
             favorite.setOnCheckedChangeListener{ buttonView, isChecked ->
                 if (isChecked){

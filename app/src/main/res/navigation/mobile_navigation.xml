@@ -23,7 +23,11 @@
         android:id="@+id/navigation_favorite"
         android:name="com.example.moviecatalogappp.ui.favorite.FavoriteFragment"
         android:label="@string/title_favorite"
-        tools:layout="@layout/fragment_favorite" />
+        tools:layout="@layout/fragment_favorite" >
+        <action
+            android:id="@+id/action_navigation_favorite_to_navigation_details"
+            app:destination="@id/navigation_details" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_details"
         android:name="com.example.moviecatalogappp.ui.details.DetailsFragment"

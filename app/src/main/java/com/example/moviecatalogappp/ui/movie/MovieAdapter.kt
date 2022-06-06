@@ -1,21 +1,21 @@
 package com.example.moviecatalogappp.ui.movie
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
-import android.widget.Toast
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.moviecatalog.localdata.FavoriteMovie
 import com.example.moviecatalogappp.R
 import com.example.moviecatalogappp.models.Movie
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.movie_item.view.*
+
 
 class MovieAdapter(
     private val movies : List<Movie>
@@ -27,6 +27,8 @@ class MovieAdapter(
         val favorite: CheckBox = view.findViewById(R.id.toggleFavorite)
         val bundle = Bundle()
         val database = Firebase.database
+        var user = FirebaseAuth.getInstance().currentUser
+        var userid = user!!.uid
         val favMovie = database.getReference("Movies")
         fun bindMovie(movie: Movie) {
             itemView.movie_title.text = movie.title
@@ -38,7 +40,7 @@ class MovieAdapter(
                     .navigate(R.id.action_navigation_main_to_navigation_details, bundle)
             }
             favorite.setOnCheckedChangeListener{ buttonView, isChecked ->
-                val mMovie= FavoriteMovie(movie.id,movie.title,movie.poster,movie.release)
+                val mMovie= FavoriteMovie(userid,movie.id,movie.title,movie.poster,movie.release)
                 if (isChecked){
                   // Log.d("MyLog", "gege " )
                   favMovie.child(movie.id).setValue(mMovie)

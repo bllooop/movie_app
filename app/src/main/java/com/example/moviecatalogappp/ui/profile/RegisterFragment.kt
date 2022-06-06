@@ -17,6 +17,7 @@ import com.example.moviecatalogappp.databinding.FragmentLoginBinding
 import com.example.moviecatalogappp.databinding.FragmentRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_login.*
+import kotlinx.android.synthetic.main.fragment_register.*
 
 class RegisterFragment():Fragment() {
     private var _binding: FragmentRegisterBinding? = null
@@ -25,7 +26,6 @@ class RegisterFragment():Fragment() {
     private lateinit var firebaseAuth : FirebaseAuth
     private var email = ""
     private var password = ""
-    val appContext = requireContext().applicationContext
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -47,7 +47,7 @@ class RegisterFragment():Fragment() {
         firebaseAuth = FirebaseAuth.getInstance()
         checkUser()
         binding.logText.setOnClickListener {
-            regText.findNavController()
+            logText.findNavController()
                 .navigate(R.id.action_navigation_register_to_navigation_login)
         }
         binding.regButton.setOnClickListener {
@@ -77,17 +77,24 @@ class RegisterFragment():Fragment() {
         firebaseAuth.createUserWithEmailAndPassword(email, password)
             .addOnSuccessListener {
             //    progressDialog.dismiss()
-                binding.regButton.findNavController().navigate(R.id.action_navigation_login_to_navigation_register)
+                activity?.let {
+                    startActivity(Intent(it, LoggedActivity::class.java))
+                }
             }
             .addOnFailureListener { e->
                // progressDialog.dismiss()
-                Toast.makeText(appContext,"Ошибка из-за ${e.message}", Toast.LENGTH_LONG).show()
+                activity?.let {
+                    Toast.makeText(it, "Ошибка из-за ${e.message}", Toast.LENGTH_LONG)
+                        .show()
+                }
             }
     }
     private fun checkUser(){
         val firebaseUser = firebaseAuth.currentUser
-        if(firebaseUser!=null){
-            startActivity(Intent(appContext, LoggedActivity::class.java))
+        activity?.let {
+            if (firebaseUser != null) {
+                startActivity(Intent(it, LoggedActivity::class.java))
+            }
         }
     }
 }

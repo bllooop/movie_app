@@ -12,6 +12,7 @@ import com.example.moviecatalog.localdata.FavoriteMovie
 import com.example.moviecatalogappp.databinding.FragmentFavoriteBinding
 import com.example.moviecatalogappp.models.Movie
 import com.example.moviecatalogappp.ui.movie.MovieAdapter
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -25,6 +26,9 @@ class FavoriteFragment : Fragment() {
     private lateinit var mFavoriteViewModel: FavoriteViewModel
     private lateinit var movieArrayList:ArrayList<FavoriteMovie>
     val displayList = ArrayList<FavoriteMovie>()
+    private lateinit var firebaseAuth : FirebaseAuth
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -43,13 +47,16 @@ class FavoriteFragment : Fragment() {
     }
     override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
         super.onViewCreated(itemView, savedInstanceState)
+        firebaseAuth = FirebaseAuth.getInstance()
+        val firebaseUser = firebaseAuth.currentUser
+        var userid = firebaseUser!!.uid
         movieArrayList= arrayListOf<FavoriteMovie>()
         rv_movies_list.layoutManager = LinearLayoutManager(activity)
         val database = Firebase.database
         val favMovie = database.getReference("Movies")
         //mFavoriteViewModel = ViewModelProvider(this).get(FavoriteViewModel::class.java)
         //mFavoriteViewModel.getLiveDataObserver().observe(viewLifecycleOwner, Observer {
-         favMovie.addValueEventListener(object : ValueEventListener {
+         favMovie.orderByChild("userid").equalTo(userid).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
                     for (moviesSnapshot in snapshot.children) {

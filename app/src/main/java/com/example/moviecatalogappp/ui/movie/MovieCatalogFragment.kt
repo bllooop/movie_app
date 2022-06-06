@@ -46,7 +46,7 @@ class MovieCatalogFragment() : Fragment() {
            //  getMovieData { movies: List<Movie> ->
            arrayList.addAll(it)
            displayList.addAll(arrayList)
-           var adapter = MovieAdapter(displayList)
+           var adapter = MovieAdapter(arrayList)
            rv_movies_list.adapter = adapter
            arrayList.forEach {
            }
