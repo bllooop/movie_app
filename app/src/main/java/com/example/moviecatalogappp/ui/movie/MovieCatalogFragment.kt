@@ -44,9 +44,11 @@ class MovieCatalogFragment() : Fragment() {
            rv_movies_list.layoutManager = LinearLayoutManager(activity)
            rv_movies_list.setHasFixedSize(true)
            //  getMovieData { movies: List<Movie> ->
+           arrayList.clear()
            arrayList.addAll(it)
+           displayList.clear()
            displayList.addAll(arrayList)
-           var adapter = MovieAdapter(arrayList)
+           var adapter = MovieAdapter(displayList)
            rv_movies_list.adapter = adapter
            arrayList.forEach {
            }

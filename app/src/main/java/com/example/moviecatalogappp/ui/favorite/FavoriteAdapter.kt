@@ -14,6 +14,8 @@ import com.example.moviecatalogappp.R
 import com.example.moviecatalogappp.models.Movie
 import com.example.moviecatalogappp.ui.movie.MovieAdapter
 import com.example.moviecatalogappp.ui.movie.MovieViewModel
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.movie_item.view.*
 
 class FavoriteAdapter( private val movies : List<FavoriteMovie>): RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>() {
@@ -24,6 +26,8 @@ class FavoriteAdapter( private val movies : List<FavoriteMovie>): RecyclerView.A
         private val IMAGE_BASE = "https://image.tmdb.org/t/p/w500/"
         val favorite: CheckBox = view.findViewById(R.id.toggleFavorite)
         val bundle = Bundle()
+        val database = Firebase.database
+        val favMovie = database.getReference("Movies")
 
         fun bindMovie(favoriteMovie: FavoriteMovie) {
             itemView.movie_title.text = favoriteMovie.title
@@ -37,17 +41,14 @@ class FavoriteAdapter( private val movies : List<FavoriteMovie>): RecyclerView.A
             }
             favorite.setOnCheckedChangeListener{ buttonView, isChecked ->
                 if (isChecked){
-                   // val mMovie= FavoriteMovie(favoriteMovie.id,movie.title,movie.poster,movie.release)
-                    Log.d("MyLog", "gege " )
-                    //addToFavorite(mMovie)
-                }
-                //else{
-                //  val mMovie=FavoriteMovie(movie.id,movie.title,movie.poster,movie.release)
-                //mMovieViewModel.removeFromFavorite(id)
-                // }
+                    //Log.d("MyLog", "gege " )
+                } else{
+                        favMovie.child(favoriteMovie.id_movie).removeValue()
+                    }
+                 }
             }
         }
-    }
+
 
     override fun onBindViewHolder(holder: FavoriteAdapter.FavoriteViewHolder, position: Int) {
        holder.bindMovie(movies.get(position))
@@ -59,7 +60,7 @@ class FavoriteAdapter( private val movies : List<FavoriteMovie>): RecyclerView.A
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteAdapter.FavoriteViewHolder {
         return FavoriteAdapter.FavoriteViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.movie_item, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.movie_item_fav, parent, false)
         )
     }
 

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/pale_black">
+    android:background="@color/pale_black"
+    android:layout_marginTop="0dp">
 
 
     <TextView
@@ -11,9 +13,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="80dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="530dp"
+        android:layout_marginBottom="550dp"
         android:layout_weight="1"
         android:text="Авторизация"
         android:textColor="@color/white"
@@ -28,7 +29,7 @@
     <EditText
         android:id="@+id/emails"
         android:layout_width="278dp"
-        android:layout_height="45dp"
+        android:layout_height="48dp"
         android:layout_marginTop="160dp"
         android:backgroundTint="@color/light_grey"
         android:ems="10"
@@ -47,7 +48,7 @@
     <EditText
         android:id="@+id/passwords"
         android:layout_width="277dp"
-        android:layout_height="41dp"
+        android:layout_height="48dp"
         android:layout_marginTop="16dp"
         android:backgroundTint="@color/light_grey"
         android:ems="10"
@@ -61,7 +62,8 @@
         android:textColorLink="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/emails" />
+        app:layout_constraintTop_toBottomOf="@id/emails"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <Button
         android:id="@+id/log_button"
