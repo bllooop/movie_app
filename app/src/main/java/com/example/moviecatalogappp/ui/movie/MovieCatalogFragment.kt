@@ -20,7 +20,8 @@ class MovieCatalogFragment() : Fragment() {
     private val binding get() = _binding!!
     val arrayList = ArrayList<Movie>()
     val displayList = ArrayList<Movie>()
-  //  private var layoutManager: RecyclerView.LayoutManager? = null
+    val appContext = context
+    //  private var layoutManager: RecyclerView.LayoutManager? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,

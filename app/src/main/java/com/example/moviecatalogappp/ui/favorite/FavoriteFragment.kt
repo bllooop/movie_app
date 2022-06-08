@@ -5,13 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.moviecatalog.localdata.FavoriteMovie
+import com.example.moviecatalogappp.models.FavoriteMovie
 import com.example.moviecatalogappp.databinding.FragmentFavoriteBinding
-import com.example.moviecatalogappp.models.Movie
-import com.example.moviecatalogappp.ui.movie.MovieAdapter
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -52,6 +48,9 @@ class FavoriteFragment : Fragment() {
         var userid = firebaseUser!!.uid
         movieArrayList= arrayListOf<FavoriteMovie>()
         rv_movies_list.layoutManager = LinearLayoutManager(activity)
+        rv_movies_list.setHasFixedSize(true)
+        val adapter = FavoriteAdapter(movieArrayList)
+        rv_movies_list.adapter = adapter
         val database = Firebase.database
         val favMovie = database.getReference("Movies")
         //mFavoriteViewModel = ViewModelProvider(this).get(FavoriteViewModel::class.java)
@@ -63,8 +62,7 @@ class FavoriteFragment : Fragment() {
                         val mMovie = moviesSnapshot.getValue(FavoriteMovie::class.java)
                         movieArrayList.add(mMovie!!)
                     }
-                    val adapter = FavoriteAdapter(movieArrayList)
-                    rv_movies_list.adapter = adapter
+                    adapter.notifyDataSetChanged()
                 }
             }
 

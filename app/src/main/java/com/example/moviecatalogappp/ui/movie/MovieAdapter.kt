@@ -1,14 +1,17 @@
 package com.example.moviecatalogappp.ui.movie
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.ImageButton
+import android.widget.Toast
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.moviecatalog.localdata.FavoriteMovie
+import com.example.moviecatalogappp.models.FavoriteMovie
 import com.example.moviecatalogappp.R
 import com.example.moviecatalogappp.models.Movie
 import com.google.firebase.auth.FirebaseAuth
@@ -22,15 +25,15 @@ class MovieAdapter(
 ) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>(){
 
     class MovieViewHolder(view : View) : RecyclerView.ViewHolder(view) {
-        private lateinit var mMovieViewModel: MovieViewModel
         private val IMAGE_BASE = "https://image.tmdb.org/t/p/w500/"
-        val favorite: CheckBox = view.findViewById(R.id.toggleFavorite)
+        val favorite: ImageButton = view.findViewById(R.id.fav)
         val bundle = Bundle()
         val database = Firebase.database
         var user = FirebaseAuth.getInstance().currentUser
         var userid = user!!.uid
+
         val favMovie = database.getReference("Movies")
-        fun bindMovie(movie: Movie) {
+        fun bindMovie(movie: Movie, context: Context) {
             itemView.movie_title.text = movie.title
             itemView.movie_release_date.text = movie.release
             Glide.with(itemView).load(IMAGE_BASE + movie.poster).into(itemView.movie_poster)
@@ -39,18 +42,31 @@ class MovieAdapter(
                 itemView.findNavController()
                     .navigate(R.id.action_navigation_main_to_navigation_details, bundle)
             }
-            favorite.setOnCheckedChangeListener{ buttonView, isChecked ->
+            favorite.setOnClickListener {
+                val mMovie= FavoriteMovie(userid,movie.id,movie.title,movie.poster,movie.release)
+                    favMovie.child(movie.id).setValue(mMovie)
+
+                Toast.makeText(context,"Фильм добавлен в избранное", Toast.LENGTH_SHORT).show()
+            }
+            /*favorite.setOnCheckedChangeListener{ buttonView, isChecked ->
                 val mMovie= FavoriteMovie(userid,movie.id,movie.title,movie.poster,movie.release)
                 if (isChecked){
-                  // Log.d("MyLog", "gege " )
-                  favMovie.child(movie.id).setValue(mMovie)
-                   //addToFavorite(mMovie)
+                    favMovie.child(movie.id).setValue(mMovie)
+                   editor.putBoolean("isFavorite",false)
+                    editor.apply()
                 }
               else{
+                 editor.putBoolean("isFavorite",true)
+                    editor.apply()
                     favMovie.child(movie.id).removeValue()
-              }
-            }
+                        //favorite.isChecked = false
+                    //favorite.isChecked=sharedPref.getBoolean("isFavorite",false)
+
+                }
+            }*/
         }
+
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
@@ -59,6 +75,7 @@ class MovieAdapter(
     }
     override fun getItemCount(): Int = movies.size
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.bindMovie(movies.get(position))
+        var context:Context=holder.itemView.context
+        holder.bindMovie(movies.get(position),context)
         }
     }

@@ -1,4 +1,4 @@
-package com.example.moviecatalog.localdata
+package com.example.moviecatalogappp.models
 
 
 import com.google.firebase.auth.FirebaseUser
