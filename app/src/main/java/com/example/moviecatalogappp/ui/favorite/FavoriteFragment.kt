@@ -4,10 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.moviecatalogappp.R
 import com.example.moviecatalogappp.models.FavoriteMovie
 import com.example.moviecatalogappp.databinding.FragmentFavoriteBinding
+import com.example.moviecatalogappp.ui.movie.MovieAdapter
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -21,10 +27,7 @@ class FavoriteFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var mFavoriteViewModel: FavoriteViewModel
     private lateinit var movieArrayList:ArrayList<FavoriteMovie>
-    val displayList = ArrayList<FavoriteMovie>()
     private lateinit var firebaseAuth : FirebaseAuth
-
-
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -46,6 +49,7 @@ class FavoriteFragment : Fragment() {
         firebaseAuth = FirebaseAuth.getInstance()
         val firebaseUser = firebaseAuth.currentUser
         var userid = firebaseUser!!.uid
+        val empty: TextView=itemView.findViewById(R.id.empty)
         movieArrayList= arrayListOf<FavoriteMovie>()
         rv_movies_list.layoutManager = LinearLayoutManager(activity)
         rv_movies_list.setHasFixedSize(true)
@@ -53,9 +57,7 @@ class FavoriteFragment : Fragment() {
         rv_movies_list.adapter = adapter
         val database = Firebase.database
         val favMovie = database.getReference("Movies")
-        //mFavoriteViewModel = ViewModelProvider(this).get(FavoriteViewModel::class.java)
-        //mFavoriteViewModel.getLiveDataObserver().observe(viewLifecycleOwner, Observer {
-         favMovie.orderByChild("userid").equalTo(userid).addValueEventListener(object : ValueEventListener {
+        favMovie.orderByChild("userid").equalTo(userid).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
                     for (moviesSnapshot in snapshot.children) {
@@ -63,13 +65,11 @@ class FavoriteFragment : Fragment() {
                         movieArrayList.add(mMovie!!)
                     }
                     adapter.notifyDataSetChanged()
+                    empty.isVisible = adapter.getItemCount() == 0
                 }
             }
-
             override fun onCancelled(error: DatabaseError) {
             }
         })
-       // })
-       // mFavoriteViewModel.getMovie()
     }
 }

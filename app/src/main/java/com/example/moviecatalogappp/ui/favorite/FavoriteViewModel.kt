@@ -3,6 +3,7 @@ package com.example.moviecatalogappp.ui.favorite
 import android.app.Application
 import androidx.lifecycle.*
 import com.example.moviecatalogappp.models.FavoriteMovie
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -11,33 +12,31 @@ import com.google.firebase.ktx.Firebase
 
 class FavoriteViewModel(application: Application) : AndroidViewModel(application)  {
     var moviess = MutableLiveData<List<FavoriteMovie>>()
-    private lateinit var movieArrayList:ArrayList<FavoriteMovie>
+    var mediatorLiveData = MediatorLiveData<List<FavoriteMovie>>()
 
     fun getLiveDataObserver():MutableLiveData<List<FavoriteMovie>>{
-        movieArrayList= arrayListOf<FavoriteMovie>()
-        val y:ArrayList<FavoriteMovie> = getMovie()
-        moviess.postValue(y)
+        moviess = getMovie()
         return moviess
     }
 
-    fun getMovie(): ArrayList<FavoriteMovie> {
-
+    fun getMovie(): MutableLiveData<List<FavoriteMovie>> {
+        val firebaseUser = FirebaseAuth.getInstance().currentUser
+        var userid = firebaseUser!!.uid
         val database = Firebase.database
         val favMovie = database.getReference("Movies")
-        val addValueEventListener = favMovie.addValueEventListener(object : ValueEventListener {
+        favMovie.orderByChild("userid").equalTo(userid).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
                     for (moviesSnapshot in snapshot.children) {
                         val mMovie = moviesSnapshot.getValue(FavoriteMovie::class.java)
-                        movieArrayList.add(mMovie!!)
+                        mediatorLiveData.postValue(listOf(mMovie!!))
                     }
                 }
             }
-
             override fun onCancelled(error: DatabaseError) {
             }
         })
-        return movieArrayList
+        return mediatorLiveData
     }
 
 }

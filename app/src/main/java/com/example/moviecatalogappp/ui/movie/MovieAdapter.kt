@@ -21,9 +21,8 @@ import kotlinx.android.synthetic.main.movie_item.view.*
 
 
 class MovieAdapter(
-    private val movies : List<Movie>
+    private val movies: List<Movie>
 ) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>(){
-
     class MovieViewHolder(view : View) : RecyclerView.ViewHolder(view) {
         private val IMAGE_BASE = "https://image.tmdb.org/t/p/w500/"
         val favorite: ImageButton = view.findViewById(R.id.fav)
@@ -31,7 +30,6 @@ class MovieAdapter(
         val database = Firebase.database
         var user = FirebaseAuth.getInstance().currentUser
         var userid = user!!.uid
-
         val favMovie = database.getReference("Movies")
         fun bindMovie(movie: Movie, context: Context) {
             itemView.movie_title.text = movie.title
@@ -45,30 +43,10 @@ class MovieAdapter(
             favorite.setOnClickListener {
                 val mMovie= FavoriteMovie(userid,movie.id,movie.title,movie.poster,movie.release)
                     favMovie.child(movie.id).setValue(mMovie)
-
                 Toast.makeText(context,"Фильм добавлен в избранное", Toast.LENGTH_SHORT).show()
             }
-            /*favorite.setOnCheckedChangeListener{ buttonView, isChecked ->
-                val mMovie= FavoriteMovie(userid,movie.id,movie.title,movie.poster,movie.release)
-                if (isChecked){
-                    favMovie.child(movie.id).setValue(mMovie)
-                   editor.putBoolean("isFavorite",false)
-                    editor.apply()
-                }
-              else{
-                 editor.putBoolean("isFavorite",true)
-                    editor.apply()
-                    favMovie.child(movie.id).removeValue()
-                        //favorite.isChecked = false
-                    //favorite.isChecked=sharedPref.getBoolean("isFavorite",false)
-
-                }
-            }*/
         }
-
-
     }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         return MovieViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.movie_item, parent, false))

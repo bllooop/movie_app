@@ -13,7 +13,6 @@
             android:id="@+id/action_navigation_main_to_navigation_details"
             app:destination="@id/navigation_details" />
     </fragment>
-
     <fragment
         android:id="@+id/navigation_profile"
         android:name="com.example.moviecatalogappp.ui.profile.ProfileFragment"
@@ -37,7 +36,4 @@
             android:id="@+id/action_navigation_details_to_navigation_main"
             app:destination="@id/navigation_main" />
     </fragment>
-
-
-
 </navigation>

@@ -20,7 +20,6 @@ class DetailsFragment : Fragment() {
     companion object {
         fun newInstance() = DetailsFragment()
     }
-
     private lateinit var viewModel: DetailsViewModel
 
     override fun onCreateView(
@@ -35,20 +34,18 @@ class DetailsFragment : Fragment() {
             val args = this.arguments
             val input = args?.getString("id")
             val id = input!!.toInt()
-            Log.d("MyLog", "gege " + id)
             val viewModel = ViewModelProvider(this).get(DetailsViewModel::class.java)
-            viewModel.getSingleMovieData(id).observe(this, Observer {
+            viewModel.getSingleMovieData(id).observe(viewLifecycleOwner, Observer {
                 bindMovie(it)
             })
     }
     fun bindMovie(movies: MovieDetails){
         movie_title.text = movies.title
         movie_release_date.text = movies.releaseDate
-        movie_runtime.text = movies.runtime.toString()
-        movie_status.text = movies.status
+        movie_runtime.text = movies.runtime.toString() + " мин"
+        movie_status.text = "Выпущен"
         movie_vote_average.text = movies.voteAverage.toString()
         Glide.with(this).load(IMAGE_BASE + movies.posterPath).into(movie_poster)
-        // Log.d("MyLog", "gege " + checking)
     }
 }
 

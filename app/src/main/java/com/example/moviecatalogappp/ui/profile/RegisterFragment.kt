@@ -39,21 +39,14 @@ class RegisterFragment():Fragment() {
 
     override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
         super.onViewCreated(itemView, savedInstanceState)
-     /*   progressDialog = ProgressDialog(appContext)
-        progressDialog.setTitle("Подождите")
-        progressDialog.setMessage("Регистрация")
-        progressDialog.setCanceledOnTouchOutside(false) */
-
         firebaseAuth = FirebaseAuth.getInstance()
         checkUser()
         binding.logText.setOnClickListener {
-            logText.findNavController()
-                .navigate(R.id.action_navigation_register_to_navigation_login)
+            logText.findNavController().navigate(R.id.action_navigation_register_to_navigation_login)
         }
         binding.regButton.setOnClickListener {
             validateData()
         }
-
     }
     private fun validateData(){
         email = binding.email.text.toString().trim()
@@ -69,20 +62,15 @@ class RegisterFragment():Fragment() {
         else {
             firebaseSignUp()
         }
-
     }
-
     private fun firebaseSignUp(){
-       // progressDialog.show()
         firebaseAuth.createUserWithEmailAndPassword(email, password)
             .addOnSuccessListener {
-            //    progressDialog.dismiss()
                 activity?.let {
                     startActivity(Intent(it, LoggedActivity::class.java))
                 }
             }
             .addOnFailureListener { e->
-               // progressDialog.dismiss()
                 activity?.let {
                     Toast.makeText(it, "Ошибка из-за ${e.message}", Toast.LENGTH_LONG)
                         .show()

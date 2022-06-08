@@ -31,15 +31,12 @@ class MovieCatalogFragment() : Fragment() {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
         val root: View = binding.root
         setHasOptionsMenu(true)
-
         //return inflater.inflate(R.layout.fragment_main, container, false)
         return root
     }
 
    override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
        super.onViewCreated(itemView, savedInstanceState)
-       // val secondFragment=DetailsFragment()
-       //val transaction: FragmentTransaction = fragmentManager!!.beginTransaction()
        val viewModel = ViewModelProvider(this).get(MovieViewModel::class.java)
        viewModel.getLiveDataObserver().observe(viewLifecycleOwner, Observer {
            rv_movies_list.layoutManager = LinearLayoutManager(activity)
@@ -51,8 +48,6 @@ class MovieCatalogFragment() : Fragment() {
            displayList.addAll(arrayList)
            var adapter = MovieAdapter(displayList)
            rv_movies_list.adapter = adapter
-           arrayList.forEach {
-           }
        })
        viewModel.getMovieData()
    }
@@ -67,9 +62,6 @@ class MovieCatalogFragment() : Fragment() {
            val item = menu!!.findItem(R.id.search_action)
         if (item!=null) {
             val searchView = item?.actionView as SearchView
-          //  val viewModel = ViewModelProvider(this).get(MovieViewModel::class.java)
-           // viewModel.getMovieData()
-           // viewModel.getLiveDataObserver().observe(this, Observer {
                 //   displayList.addAll(it)
                 searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                     override fun onQueryTextSubmit(query: String?): Boolean {
@@ -82,7 +74,7 @@ class MovieCatalogFragment() : Fragment() {
                             arrayList.forEach {
                                 if (it.title.toLowerCase(Locale.getDefault()).contains(search)) {
                                     displayList.add(it)
-                                  //  Log.d("MyLog", "gege " + it.toString())
+                                  //  Log.d("MyLog", "test " + it.toString())
                                 }
                             }
                             rv_movies_list.adapter!!.notifyDataSetChanged()
@@ -94,7 +86,6 @@ class MovieCatalogFragment() : Fragment() {
                         return true
                     }
                 })
-            //})
         }
         return super.onCreateOptionsMenu(menu, inflater)
     }

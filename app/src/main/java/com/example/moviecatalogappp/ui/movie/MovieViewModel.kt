@@ -12,18 +12,10 @@ import retrofit2.Response
 
 class MovieViewModel : ViewModel() {
      var moviess = MutableLiveData<List<Movie>>()
-   //  private val repository: FavoriteMovieRepository
-   /*  init{
-          val  favoriteMovieDao = FavoriteMovieDatabase.getAppDatabase(application)!!.getFavoriteMovieDao()
-          repository = FavoriteMovieRepository(favoriteMovieDao)
-          moviess=MutableLiveData()
-     } */
-
 
      fun getLiveDataObserver():MutableLiveData<List<Movie>>{
           return moviess
      }
-
 
      //callback: (List<Movie>) -> Unit
      fun getMovieData(){
@@ -35,11 +27,4 @@ class MovieViewModel : ViewModel() {
                }
           })
      }
-   /*  fun addToFavorite(favoriteMovie: FavoriteMovie) {
-          viewModelScope.launch(Dispatchers.IO) {
-               repository.addToFavorite(favoriteMovie)
-          }
-          }
-
-*/
-     }
+}

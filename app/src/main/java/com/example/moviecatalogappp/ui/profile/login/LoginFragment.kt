@@ -38,21 +38,14 @@ class LoginFragment() : Fragment() {
 
     override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
         super.onViewCreated(itemView, savedInstanceState)
-       /* progressDialog = ProgressDialog(appContext)
-        progressDialog.setTitle("Подождите")
-        progressDialog.setMessage("Авторизовывается")
-        progressDialog.setCanceledOnTouchOutside(false) */
-
         firebaseAuth = FirebaseAuth.getInstance()
             checkUser()
         binding.regText.setOnClickListener {
-            regText.findNavController()
-                .navigate(R.id.action_navigation_login_to_navigation_register)
+            regText.findNavController().navigate(R.id.action_navigation_login_to_navigation_register)
         }
         binding.logButton.setOnClickListener {
             validateData()
         }
-
     }
     private fun validateData(){
         email = binding.emails.text.toString()
@@ -65,18 +58,13 @@ class LoginFragment() : Fragment() {
         } else {
             firebaseLogin()
         }
-
     }
-
     private fun firebaseLogin(){
-      //  progressDialog.show()
         firebaseAuth.signInWithEmailAndPassword(email, password)
             .addOnSuccessListener {
-             //  progressDialog.dismiss()
                 binding.logButton.findNavController().navigate(R.id.action_navigation_login_to_navigation_register)
             }
             .addOnFailureListener { e->
-                //progressDialog.dismiss()
                 Toast.makeText(appContext,"Ошибка из-за ${e.message}", Toast.LENGTH_LONG).show()
             }
     }
